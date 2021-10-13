@@ -10,4 +10,12 @@ import java.util.Optional;
 public interface AddressBookRepository extends JpaRepository<AddressBook, Integer> {
 
     Optional<AddressBook> findByName(String name);
+
+    Optional<AddressBook> findByMobileNo(int mobileNo);
+
+    Optional<AddressBook> findByState(String state);
+
+    Optional<AddressBook> findByCity(String city);
+
+    Optional<AddressBook> findByEmail(String email);
 }

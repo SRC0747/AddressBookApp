@@ -80,4 +80,36 @@ public class AddressBookService {
         }
         return "Record does not exists with this id : " + id;
     }
+
+    public AddressBook getPersonByMobileNo(int mobileNo) {
+        Optional<AddressBook> addressBookData = addressBookRepository.findByMobileNo(mobileNo);
+        if (addressBookData.isPresent()){
+            return addressBookData.get();
+        }
+        return null;
+    }
+
+    public AddressBook getPersonByState(String state) {
+        Optional<AddressBook> addressBookData = addressBookRepository.findByState(state);
+        if (addressBookData.isPresent()){
+            return addressBookData.get();
+        }
+        return null;
+    }
+
+    public AddressBook getPersonByCity(String city) {
+        Optional<AddressBook> addressBookData = addressBookRepository.findByCity(city);
+        if (addressBookData.isPresent()){
+            return addressBookData.get();
+        }
+        return null;
+    }
+
+    public AddressBook getPersonByEmail(String email) {
+        Optional<AddressBook> addressBookData = addressBookRepository.findByEmail(email);
+        if (addressBookData.isPresent()){
+            return addressBookData.get();
+        }
+        return null;
+    }
 }

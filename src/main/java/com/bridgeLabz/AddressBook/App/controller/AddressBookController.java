@@ -27,6 +27,26 @@ public class AddressBookController {
         return addressBookService.getPersonByName(name);
     }
 
+    @GetMapping(value = "/get-person-by-mobile")
+    public AddressBook getPersonByMobileNo(@RequestParam int mobileNo){
+        return addressBookService.getPersonByMobileNo(mobileNo);
+    }
+
+    @GetMapping(value = "/get-person-by-State")
+    public AddressBook getPersonByState(@RequestParam String state) {
+        return addressBookService.getPersonByState(state);
+    }
+
+    @GetMapping(value = "/get-person-by-City")
+    public AddressBook getPersonByCity(@RequestParam String city) {
+        return addressBookService.getPersonByCity(city);
+    }
+
+    @GetMapping(value = "/get-person-by-Email")
+    public AddressBook getPersonByEmail(@RequestParam String email) {
+        return addressBookService.getPersonByEmail(email);
+    }
+
     @PostMapping(value = "/person")
     public AddressBook addPerson(@RequestBody AddressBook addressBookData) {
         return addressBookService.addPerson(addressBookData);
