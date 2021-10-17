@@ -1,7 +1,9 @@
 package com.bridgeLabz.AddressBook.App.service;
 
+import com.bridgeLabz.AddressBook.App.DTO.AddressBookDTO;
 import com.bridgeLabz.AddressBook.App.entity.AddressBook;
 import com.bridgeLabz.AddressBook.App.repository.AddressBookRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +23,8 @@ public class AddressBookService {
 
     @Autowired
     private static AddressBookRepository addressBookRepository;
+    @Autowired
+    private ModelMapper modelMapper;
 
     /**
      * Method for getting all the students from database
@@ -45,40 +49,6 @@ public class AddressBookService {
             return addressBookData.get();
         }
         return null;
-    }
-    /**
-     *
-     * @param AddressBook add operation
-     * @return
-     */
-
-    public AddressBook addPerson(AddressBook addressBookData) {
-        return addressBookRepository.save(addressBookData);
-    }
-
-    /**
-     *
-     * @param AddressBook update operation
-     * @return
-     */
-
-    public AddressBook updatePerson(AddressBook addressBook) {
-        return addressBookRepository.save(addressBook);
-    }
-
-    /**
-     *
-     * @param AddressBook delete operation
-     * @return
-     */
-
-    public String deletePerson(int id) {
-        Optional<AddressBook> addressBookEntity = addressBookRepository.findById(id);
-        if (addressBookEntity.isPresent()) {
-            addressBookRepository.delete(addressBookEntity.get());
-            return "Record deleted successfully";
-        }
-        return "Record does not exists with this id : " + id;
     }
 
     public AddressBook getPersonByMobileNo(int mobileNo) {
@@ -112,4 +82,54 @@ public class AddressBookService {
         }
         return null;
     }
+
+    /**
+     *
+     * @param AddressBookDTO add operation
+     * @return
+     */
+
+    public AddressBook addPerson(AddressBook addressBookData) {
+        AddressBookDTO addressBookDTO = new AddressBookDTO();
+        return addressBookRepository.save(addressBookData);
+    }
+
+    /**
+     *
+     * @param AddressBookDTO update operation
+     * @return
+     */
+
+    public AddressBook updatePerson(int id, AddressBookDTO addressBookDTO) {
+        Optional<AddressBook> optionalAddressBookEntity = addressBookRepository.findById(id);
+        if(optionalAddressBookEntity.isPresent()) {
+            AddressBook addressBookData = optionalAddressBookEntity.get();
+            addressBookData.setId(addressBookDTO.getId());
+            addressBookData.setName(addressBookDTO.getName());
+            addressBookData.setState(addressBookData.getState());
+            addressBookData.setCity(addressBookData.getCity());
+            addressBookData.setMobileNo(addressBookData.getMobileNo());
+            addressBookData.setEmail(addressBookData.getEmail());
+            return addressBookRepository.save(addressBookData);
+        }
+        //return addressBookRepository.save(addressBookData);
+        return null;
+    }
+    }
+
+    /**
+     *
+     * @param AddressBook delete operation
+     * @return
+     */
+
+    public String deletePerson(int id) {
+        Optional<AddressBook> addressBookEntity = addressBookRepository.findById(id);
+        if (addressBookEntity.isPresent()) {
+            addressBookRepository.delete(addressBookEntity.get());
+            return "Record deleted successfully";
+        }
+        return "Record does not exists with this id : " + id;
+    }
+
 }

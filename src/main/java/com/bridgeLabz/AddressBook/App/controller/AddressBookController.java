@@ -1,10 +1,20 @@
 package com.bridgeLabz.AddressBook.App.controller;
 
+import com.bridgeLabz.AddressBook.App.DTO.AddressBookDTO;
 import com.bridgeLabz.AddressBook.App.entity.AddressBook;
 import com.bridgeLabz.AddressBook.App.service.AddressBookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+
+/**
+ * AddressBookAppController setting up CRUD operations in application
+ * @author Sampriti Roy Chowdhury
+ * version 0.0.1
+ * @since 15-10-2021
+ */
+
+@RequestMapping("/Api")
 @RestController
 public class AddressBookController {
     // CRUD
@@ -53,8 +63,9 @@ public class AddressBookController {
     }
 
     @PutMapping(value = "/person")
-    public AddressBook updatePerson(@RequestBody AddressBook addressBook) {
-        return addressBookService.updatePerson(addressBook);
+    public AddressBook updatePerson(@PathVariable int id, @RequestBody AddressBookDTO addressBookDTO) {
+        return addressBookService.updatePerson(id, addressBookDTO);
+        //return addressBookService.updatePerson(addressBook);
     }
 
     @DeleteMapping(value = "/person")
